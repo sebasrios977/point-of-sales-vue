@@ -16,6 +16,7 @@
     "@formkit/vue": "^1.6.9",
     "firebase": "^12.1.0",
     "pinia": "^3.0.3",
+    "uid": "^2.0.2",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1",
     "vuefire": "^3.2.2"
