@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 import { useFirestore, useCollection, useFirebaseStorage } from "vuefire";
 import { collection, addDoc, where, query, limit, orderBy, updateDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
@@ -10,6 +10,7 @@ export const useProductsStore = defineStore('products', () => {
     const db = useFirestore();
     const storage = useFirebaseStorage();
 
+    const selectedCategory = ref(1);
     const categories = [
         { id: '', name: 'Seleccione', attrs: { disabled: true } },
         { id: 1, name: 'Sudaderas' },
@@ -62,12 +63,19 @@ export const useProductsStore = defineStore('products', () => {
 
     const noResults = computed(() => productsCollection.value.length === 0);
 
+    const filteredProducts = computed(() => {
+        return productsCollection.value.filter( product => product.category === selectedCategory.value);
+    });
+
     return {
         createProuct,
         updateProduct,
         deleteProducts,
         productsCollection,
+        categories,
+        selectedCategory,
         categoryOptions,
         noResults,
+        filteredProducts,
     }
 });
